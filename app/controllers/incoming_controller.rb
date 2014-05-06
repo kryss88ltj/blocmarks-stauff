@@ -5,16 +5,9 @@ class IncomingController < ApplicationController
   def create
     # Take a look at these in your server logs
     # to get a sense of what you're dealing with.
+    sender = params['from']
+    body_plain = params['stripped-text']
 
-    if request.method == 'POST':
-         sender    = request.POST.get('sender')
-         # recipient = request.POST.get('recipient')
-         subject   = request.POST.get('subject', '')
-
-         body_plain = request.POST.get('body-plain', '')
-
-    
-    return HttpResponse('OK')
     @topic = Topic.where(title: "E-mail").first_or_create
     @user = User.where(email: sender)
     unless @user.nil?
@@ -25,6 +18,7 @@ class IncomingController < ApplicationController
 
     # Assuming all went well. 
     # head 200
+    render :text => "OK"
   end
 
 
