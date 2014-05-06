@@ -1,0 +1,32 @@
+<div class="jumbotron">
+  <h1>Blocmarks</h1>
+  <p>Store and curate your links for later reference.</p>
+  <p> 
+    <% if current_user %>
+      Hello, <%= current_user.user_name %>!
+    <% else %>
+      <%= link_to "Log in", log_in_path, class: 'btn btn-success btn-large' %> or 
+      <%= link_to "Sign Up", sign_up_path, class: 'btn btn-primary btn-large' %> today!
+    <% end %>
+</div>
+
+<h2>Latest topics from all BlocMarks users</h2>
+<% @topics.order('created_at DESC').limit(4).each do |topic| %>
+  <div class="media">
+    <div class="media-body">
+        <h3 class="media-heading">
+          <%= link_to topic.title, topic %>
+        </h3>
+        <small>Latest posts in this topic:</small>
+          <p> </p>
+          <div class="media-body">
+            <%= render partial: 'topics/posts/post', collection: topic.posts.order('created_at DESC').limit(4) %>
+          </div>
+        <div>
+          See all posts in <%= link_to topic.title, topic %>
+          <small> submitted <%= time_ago_in_words(topic.created_at) %> ago by <%= topic.user.user_name if topic.user %>
+          </small>
+        </div>     
+      </div>
+    </div>
+<% end %>

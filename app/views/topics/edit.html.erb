@@ -1,0 +1,22 @@
+<h1>Edit topic</h1>
+
+<div class="row">
+  <div class="span-6">
+    <p>Edit your topic name here:</p>
+</div>
+<div class="span-6">
+  <%= form_for @topic, html: { class: 'form-horizontal' } do |f| %>
+    <div class="control-group">
+      <%= f.label :title, class: 'control-label' %>
+      <%= f.text_field :title, :autofocus => true  %>
+  </div>
+  </div>
+  <p></p>
+    <div class="control-group">
+      <div class="controls">
+        <%= f.submit "Save", class: 'btn' %>
+      </div>
+    </div>
+  <% end %>
+</div>
+</div>

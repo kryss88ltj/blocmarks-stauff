@@ -1,0 +1,19 @@
+<h1>Posts in the <%= @topic.title %> topic</h1>
+<div class="span4">
+    <%= link_to "Add link", new_topic_post_path(@topic), class: 'btn btn-primary btn-mini' %>
+
+  </div>
+  <p>
+
+<div class="media-body">
+  <%= render partial: '/topics/posts/post', collection: @posts %>
+</div>
+
+
+      <%= link_to "Edit Topic", edit_topic_path, class: 'btn btn-large btn-block btn-warning' %>
+
+
+
+
+  
+

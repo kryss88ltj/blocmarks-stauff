@@ -1,0 +1,23 @@
+#!/usr/bin/env ruby
+
+require "rubygems"
+require "bundler/setup"
+require "mailman"
+
+Mailman.config.pop3 = {
+  :username => 'blocmarks@gmail.com',
+  :password => 'blocmarks1',
+  :server   => 'pop.gmail.com',
+  :port     => 995, # defaults to 110
+  :ssl      => true # defaults to false
+}
+
+
+Mailman::Application.run do
+  default do
+    User.find_by_email(message.from.first) do |u|
+      topic = u.topics.create! title: message.subject
+      u.posts.create! topic: topic, url: message.body.decoded
+    end
+  end
+end

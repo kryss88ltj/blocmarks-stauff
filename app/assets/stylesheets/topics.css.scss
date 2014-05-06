@@ -1,0 +1,19 @@
+// Place all the styles related to the Topics controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.embed {
+  img {
+    width: 245px;
+    height: 190px;
+  }
+}
+
+.provider {
+  display: none;
+}
+
+.row {
+  padding: 0 15px;
+  margin: 0 -15px;
+}

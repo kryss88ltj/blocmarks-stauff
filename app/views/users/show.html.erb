@@ -1,0 +1,40 @@
+<div class="media">
+  <h2><%= current_user.user_name %>'s personal BlocMarks</h2>
+  <p>Find your own topics and posted links on this page.</p>
+</div>
+
+<div>
+
+    <%= link_to "Add a new topic", new_topic_path, class: 'btn btn-primary btn-mini' %>
+
+  <p></p>
+</div>
+
+<% current_user.topics.each do |topic| %>
+  <div class="media">
+    <div class="media-body">
+        <h3 class="media-heading">
+          <%= link_to topic.title, topic %>
+        </h3>
+        <small>Latest posts in this topic:</small>
+          <p> </p>
+          <div class="media-body">
+            <%= render partial: 'topics/posts/post', collection: topic.posts.order('created_at DESC').limit(4) %>
+          </div>
+        <div>
+          See all posts in <%= link_to topic.title, topic %>
+          <small>
+            <p></p>
+            <%= topic.title %> was submitted <%= time_ago_in_words(topic.created_at) %> ago by <%= topic.user.user_name if topic.user %>
+          </small>
+        </div>     
+      </div>
+    </div>
+  <% end %>
+  <p></p>
+  <div class="media">
+    <div class="media-body">
+      <h3 class="media-heading">
+        <%= current_user.user_name %>'s Favorites
+      </h3>
+       <%= render partial: 'topics/posts/post', collection: current_user.favorite_posts %>

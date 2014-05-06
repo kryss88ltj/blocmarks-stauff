@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Blocmarks</title>
+      <%= stylesheet_link_tag    "application", media: "all"%>
+      <%= csrf_meta_tags %>
+
+  </head>
+  <body>
+  <div class="container">
+    <ul class="nav nav-pills">
+        <li class="active"><%= link_to "Blocmarks", root_path %></li>
+        <li><%= link_to "About", about_path %></li>
+        <li><%= link_to "Topics", topics_path %></li>
+        <% if current_user %>
+        <li><%= link_to "My Blocmarks", current_user %></li>
+        <% end %>
+    
+        <div class="pull-right user-info">
+          <% if current_user %>
+            Hello <%= link_to (current_user.user_name || current_user.email), current_user %>!
+            <%= link_to edit_user_path(current_user), class: 'btn btn-mini' do %>
+              <i class="glyphicon glyphicon-user"> </i>
+            <% end %>
+            <%= link_to "Log Out", log_out_path %>
+          <% else %>
+           <%= link_to "Sign Up", sign_up_path %> or
+           <%= link_to "Log In", log_in_path %>
+           <% end %>
+        </div>
+      </ul>
+
+        
+            
+    <% if flash[:notice] %>
+        <div class="alert alert-success">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <%= flash[:notice] %>
+        </div>
+      <% elsif flash[:error] %>
+        <div class="alert alert-danger">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <%= flash[:error] %>
+        </div>
+      <% elsif flash[:alert] %>
+        <div class="alert alert-warning">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <%= flash[:alert] %>
+        </div>
+      <% end %> 
+
+    <%= yield %>
+   </div> 
+
+   <%= javascript_include_tag "application" %>
+      <script src="http://cdn.embed.ly/jquery.embedly-3.1.1.min.js" type="text/javascript"></script>
+
+  </body>
+</html>

@@ -1,0 +1,14 @@
+
+  <div class="js-favorite" id="favorite-<%= post.id %>">
+    <% if current_user && favorite = current_user.favorited(post) %>
+      <%= link_to [post.topic, post, favorite], class: 'btn btn-small btn-info', method: :delete, remote: true do %>
+        <i class="glyphicon glyphicon-heart"> </i>&nbsp;Liked!
+      <% end %>
+    <% else %>
+      <%= form_for [post.topic, post, Favorite.new], remote: true do %>
+        <%= button_tag type: 'submit', class: 'btn btn-small btn-default' do %>
+          <i class="glyphicon glyphicon-heart-empty"> </i>&nbsp;Like
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
