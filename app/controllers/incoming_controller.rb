@@ -9,7 +9,8 @@ class IncomingController < ApplicationController
     body_plain = params['stripped-text']
 
     @topic = Topic.where(title: "E-mail").first_or_create
-    @user = User.where(email: sender)
+    #@user = User.where(email: sender)
+    @user = User.first
     unless @user.nil?
       @user.posts.create(url: body_plain, topic_id: @topic.id)
     end  
