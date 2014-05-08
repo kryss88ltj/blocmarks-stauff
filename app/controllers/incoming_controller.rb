@@ -5,7 +5,7 @@ class IncomingController < ApplicationController
   def create
     # Take a look at these in your server logs
     # to get a sense of what you're dealing with.
-    sender = params[:][:sender]
+    sender = params[:sender]
     body_plain = params[:stripped-text]
 
     @topic = Topic.where(title: "E-mail").first_or_create
