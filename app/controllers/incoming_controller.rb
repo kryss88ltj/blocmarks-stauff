@@ -5,15 +5,13 @@ class IncomingController < ApplicationController
   def create
     # Take a look at these in your server logs
     # to get a sense of what you're dealing with.
-    sender = params['sender']
-    body_plain = params['stripped-text']
+    sender = params[:][:sender]
+    body_plain = params[:stripped-text]
 
     @topic = Topic.where(title: "E-mail").first_or_create
     #@user = User.where(email: sender)
     @user = User.first
-    unless @user.nil?
-      @user.posts.create(url: body_plain, topic_id: @topic.id)
-    end  
+    @user.posts.create(url: body_plain, topic_id: @topic.id)
     # You put the message-splitting and business
     # magic here. 
 
